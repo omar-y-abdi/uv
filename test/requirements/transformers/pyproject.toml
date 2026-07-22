@@ -63,8 +63,8 @@ onnx = [
     "onnxruntime>=1.4.0",
     "onnxruntime-tools>=1.4.2"
 ]
-modelcreation = ["cookiecutter==1.7.3"]
-sagemaker = ["sagemaker==2.226.1"] # sagemaker>=2.31.0 # TODO(konsti)
+modelcreation = ["cookiecutter==2.7.1"]
+sagemaker = ["sagemaker==3.8.0"] # sagemaker>=2.31.0 # TODO(konsti)
 deepspeed = ["deepspeed>=0.9.3", "accelerate>=0.21.0"]
 optuna = ["optuna"]
 ray = ["ray[tune]>=2.7.0"]
@@ -112,7 +112,7 @@ deepspeed-testing = [
     "sacrebleu>=1.4.12,<2.0.0",
     "rouge-score!=0.0.7,!=0.0.8,!=0.1,!=0.1.1",
     "nltk",
-    "GitPython<3.1.19",
+    "GitPython<3.1.55",
     "hf-doc-builder>=0.3.0",
     "protobuf",
     "sacremoses",
@@ -122,7 +122,7 @@ deepspeed-testing = [
     "pydantic",
     "faiss-cpu",
     "datasets!=2.5.0",
-    "cookiecutter==1.7.3",
+    "cookiecutter==2.7.1",
     "optuna",
     "sentencepiece>=0.1.91,!=0.1.92",
     "protobuf"
@@ -131,9 +131,9 @@ quality = [
     "datasets!=2.5.0",
     "isort>=5.5.4",
     "ruff==0.1.5",
-    "GitPython<3.1.19",
+    "GitPython<3.1.55",
     "hf-doc-builder>=0.3.0",
-    "urllib3<2.0.0"
+    "urllib3<3.0.0"
 ]
 all = [
     "tensorflow>=2.6,<2.16",
@@ -226,14 +226,14 @@ agents = [
 ]
 
 dev-dependencies = [
-    "GitPython<3.1.19",
+    "GitPython<3.1.55",
     "Pillow>=10.0.1,<=15.0",
     "accelerate>=0.21.0",
     "av==9.2.0",
     "beautifulsoup4",
     "codecarbon==1.2.0",
     "codecarbon==1.2.0",
-    "cookiecutter==1.7.3",
+    "cookiecutter==2.7.1",
     "datasets!=2.5.0",
     "decord==0.6.0",
     "dill<0.3.5",
@@ -289,7 +289,7 @@ dev-dependencies = [
     "torchvision",
     "unidic>=1.0.2",
     "unidic_lite>=1.0.7",
-    "urllib3<2.0.0"
+    "urllib3<3.0.0"
 ]
 
 [build-system]
