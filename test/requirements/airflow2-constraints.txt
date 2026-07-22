@@ -167,7 +167,7 @@ httplib2==0.20.4
 httpx==0.23.0
 humanize==4.3.0
 hvac==1.1.1
-idna==3.3
+idna==3.15
 inflection==0.5.1
 isodate==0.6.1
 itsdangerous==2.1.2
@@ -262,7 +262,7 @@ six==1.16.0
 slack-sdk==3.18.1
 sniffio==1.2.0
 sortedcontainers==2.4.0
-soupsieve==2.3.2.post1
+soupsieve==2.8.4
 SQLAlchemy==1.4.27
 sqlalchemy-bigquery==1.4.4
 SQLAlchemy-JSONField==1.0.0
