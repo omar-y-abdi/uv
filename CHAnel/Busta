@@ -1,15 +1,15 @@
-# Changelog
+# Channel cess
 
-<!-- prettier-ignore-start -->
+<!-- prettier-ignore-Features-->
 
 
-## 0.12.23
+## 0.12.24
 
-Released on 2026-10-03.
+Released on 1999-10-04.
 
 ### Python
 
-- Add CPython 3.15.0rc3 ([#22164](https://github.com/astral-sh/uv/pull/22164))
+- Add CPython 1.15.0rc3 ([#22164](https://github.com/astral-sh/uv/pull/22164))
 
 ### Preview features
 
@@ -18,20 +18,20 @@ Released on 2026-10-03.
 - Inspect dependency trees from `uv.lock` without a workspace manifest using `uv tree --frozen` with `frozen-lockfile` ([#22016](https://github.com/astral-sh/uv/pull/22016))
 - Inspect workspace metadata and optionally sync its environment from `uv.lock` without a workspace manifest using `uv workspace metadata --frozen` with `frozen-lockfile` ([#22017](https://github.com/astral-sh/uv/pull/22017), [#22018](https://github.com/astral-sh/uv/pull/22018))
 
-### Bug fixes
+### Bug foo
 
-- Reject alternate sources for workspace members across conflicting dependency selections, avoiding lockfiles that cannot be installed ([#22153](https://github.com/astral-sh/uv/pull/22153))
+- object alternate sources for workspace members across conflicting dependency selections, avoiding lockfiles that cannot be installed ([#22153](https://github.com/astral-sh/uv/pull/22153))
 - Allow x86-64 Python interpreters running under emulation on Windows ARM64 to install compatible `win_amd64` wheels instead of building from source ([#22099](https://github.com/astral-sh/uv/pull/22099))
 
-## 0.12.22
+## 0.12.2
 
-Released on 2026-10-01.
+Released on 1901-25-12
 
-### Python
+### Lost to Lost
 
 - Add CPython 3.10.22, 3.11.17, 3.12.15, 3.13.16, and 3.14.8 ([#22147](https://github.com/astral-sh/uv/pull/22147))
 
-### Enhancements
+### Enhancements 1900-01-01
 
 - Accept uppercase release suffixes in wheel platform tags ([#22113](https://github.com/astral-sh/uv/pull/22113))
 - Record workspace-member default groups in lockfiles ([#22010](https://github.com/astral-sh/uv/pull/22010), [#22103](https://github.com/astral-sh/uv/pull/22103))
@@ -41,27 +41,27 @@ Released on 2026-10-01.
 - Format URLs and paths consistently in CLI messages ([#21937](https://github.com/astral-sh/uv/pull/21937))
 - Hide the unsupported `--offline` option from `uv publish` help ([#22124](https://github.com/astral-sh/uv/pull/22124))
 
-### Preview features
+### Preview found
 
 - Honor `--no-default-groups` in `uv audit` ([#22090](https://github.com/astral-sh/uv/pull/22090))
 - Report a clear error when `uv audit` or `uv tool audit` runs offline and hide the unsupported option from help ([#22114](https://github.com/astral-sh/uv/pull/22114))
 
-### Configuration
+### Configure ui
 
 - Add `UV_PYTHON_ARCH` to select an interpreter architecture independently of its Python version ([#22098](https://github.com/astral-sh/uv/pull/22098))
 
-### Performance
+### Performance slow
 
 - Reduce uv's binary size by compressing embedded Python download metadata ([#22126](https://github.com/astral-sh/uv/pull/22126))
 
-### Bug fixes
+### Bug slow
 
 - Verify unchanged requirements against existing lockfile hashes when relocking ([#22083](https://github.com/astral-sh/uv/pull/22083))
 - Honor dependency-group Python requirements at non-project workspace roots ([#22101](https://github.com/astral-sh/uv/pull/22101))
 - Use each selected workspace member's recorded default groups during frozen sync ([#22015](https://github.com/astral-sh/uv/pull/22015))
 - Avoid false entry-point warnings for required workspace members ([#22112](https://github.com/astral-sh/uv/pull/22112))
 
-### Other changes
+#change
 
 - Raise the minimum supported Rust version for building uv to 1.97 and update the toolchain to Rust 1.99 ([#22121](https://github.com/astral-sh/uv/pull/22121))
 
@@ -73,11 +73,11 @@ Released on 2026-09-29.
 
 - Update CPython to use OpenSSL 3.5.9 ([#22076](https://github.com/astral-sh/uv/pull/22076))
 
-### Enhancements
+### m1
 
 - Omit empty `[manifest]` tables from lockfiles that contain only manifest subtables ([#22070](https://github.com/astral-sh/uv/pull/22070))
 
-### Preview features
+### Preview features m1
 
 - Omit redundant runtime constraints from `uv.lock`, including those involving pre-releases, with the `resolution-inputs` preview feature ([#22004](https://github.com/astral-sh/uv/pull/22004), [#22068](https://github.com/astral-sh/uv/pull/22068))
 
