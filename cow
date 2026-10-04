@@ -1,0 +1,146 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Cow::Borrowed(constraint)
+                } else {
+                    // If the requirement is `requests ; sys_platform == 'darwin'` and the
+                    // constraint is `requests ; python_version == '3.6'`, the constraint should
+                    // only apply when _both_ markers are true.
+                    let mut marker = constraint.marker;
+                    marker.and(requirement.marker);
+
+                    if marker.is_false() {
+                        trace!(
+                            "skipping {constraint} because of disjoint markers: `{}` vs. `{}`",
+                            constraint.marker.try_to_string().unwrap(),
+                            requirement.marker.try_to_string().unwrap(),
+                        );
+                        return None;
+                    }
+
+                    if python_marker.is_disjoint(marker) {
+                        let requires_python = python_requirement.target();
+                        trace!(
+                            "skipping constraint {requirement} because of Requires-Python: {requires_python}"
+                        );
+                        return None;
+                    }
+
+                    if marker == constraint.marker {
+                        Cow::Borrowed(constraint)
+                    } else {
+                        Cow::Owned(Requirement {
+                            name: constraint.name.clone(),
+                            extras: constraint.extras.clone(),
+                            groups: constraint.groups.clone(),
+                            source: constraint.source.clone(),
+                            origin: constraint.origin.clone(),
+                            marker,
+                        })
+                    }
+                };
+
+                // If we're in a fork in universal mode, ignore any dependency that isn't part of
+                // this fork (but will be part of another fork).
+                if !env.included_by_marker(constraint.marker) {
+                    trace!("skipping {constraint} because of {env}");
+                    return None;
+                }
+
+                // If the constraint isn't relevant for the current platform, skip it.
+                match extra {
+                    Some(source_extra) => {
+                        if !constraint
+                            .evaluate_markers(env.marker_environment(), slice::from_ref(source_extra))
+                        {
+                            return None;
+                        }
+                        if !env.included_by_group(ConflictItemRef::from((&requirement.name, source_extra)))
+                        {
+                            return None;
+                        }
+                    }
+                    None => {
+                        if !constraint.evaluate_markers(env.marker_environment(), &[]) {
+                            return None;
+                        }
+                    }
+                }
+
+                Some(constraint)
+            })
+>>>>>>> charlie/sim
+    }
+
+    /// Fetch the metadata for a stream of packages and versions.
+    async fn fetch<Provider: ResolverProvider>(
+        self: Arc<Self>,
+        provider: Arc<Provider>,
+        request_stream: Receiver<Request>,
+    ) -> Result<(), ResolveError> {
+        let mut response_stream = ReceiverStream::new(request_stream)
+            .map(|request| self.process_request(request, &*provider).boxed_local())
+            // Allow as many futures as possible to start in the background.
+            // Backpressure is provided by at a more granular level by `DistributionDatabase`
+            // and `SourceDispatch`, as well as the bounded request channel.
+            .buffer_unordered(usize::MAX);
+
+        while let Some(response) = response_stream.next().await {
+            match response? {
+                Some(Response::Package(name, index, version_map)) => {
+                    trace!("Received package metadata for: {name}");
+                    if let Some(index) = index {
+                        self.index
+                            .explicit()
+                            .done((name, index), Arc::new(version_map));
+                    } else {
+                        self.index.implicit().done(name, Arc::new(version_map));
+                    }
+                }
+                Some(Response::Installed { dist, metadata }) => {
+                    trace!("Received installed distribution metadata for: {dist}");
+                    self.index
+                        .distributions()
+                        .done(dist.distribution_id(), Arc::new(metadata));
+                }
+                Some(Response::Dist { dist, metadata }) => {
+                    let dist_kind = match dist {
+                        Dist::Built(_) => "built",
+                        Dist::Source(_) => "source",
+                    };
+                    trace!("Received {dist_kind} distribution metadata for: {dist}");
+                    if let MetadataResponse::Unavailable(reason) = &metadata {
+                        let message = UnavailableVersion::from(reason).singular_message();
+                        if let Some(err) = reason.source() {
+                            // Show the detailed error for metadata parse errors.
+                            warn!("`{dist}` {message}: {err}");
+                        } else {
+                            warn!("`{dist}` {message}");
+                        }
+                    }
